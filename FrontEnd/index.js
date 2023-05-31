@@ -12,6 +12,7 @@ fetch("http://localhost:5678/api/works")
     showWorks(data);
     const categoriesArray = Array.from(categoriesSet);
     showCategories(categoriesArray);
+    filterProjectsByCategorie(data);
   })
   .catch((error) => {
     console.error(error);
@@ -39,8 +40,26 @@ const showWorks = (data) => {
 const showCategories = (categoriesArray) => {
   categoriesArray.forEach((category) => {
     const filters = document.querySelector(".filters");
-    const filter = document.createElement("p");
-    filter.innerText = category;
-    filters.appendChild(filter);
+    const filterElement = document.createElement("p");
+    filterElement.classList.add("filter");
+    filterElement.innerText = category;
+    filters.appendChild(filterElement);
+  });
+};
+
+//Filtrer les projets par catégorie
+const filterProjectsByCategorie = (data) => {
+  const filters = document.querySelectorAll(".filter");
+  let selectedCategory;
+  filters.forEach((filter) => {
+    filter.addEventListener("click", function () {
+      selectedCategory = this.innerText;
+      const filteredProjects = data.filter((project) => {
+        return project.category.name === selectedCategory;
+      });
+
+      document.querySelector(".gallery").innerHTML = "";
+      showWorks(filteredProjects);
+    });
   });
 };
