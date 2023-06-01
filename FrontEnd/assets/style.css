@@ -167,8 +167,10 @@ li:hover {
 
 .modal-content {
 	background-color: #fff;
-	padding: 250px;
+	padding: 90px;
 	position: relative;
+	width: 30%;
+	
 }
 
 .close-modal {
@@ -176,6 +178,19 @@ li:hover {
 	top: 20px;
 	right: 20px;
 	cursor: pointer;
+}
+
+.modal-projects {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.modal-project {
+	width: 25%;
+}
+
+.modal-projects img {
+	width: 100%;
 }
 
 .filters {

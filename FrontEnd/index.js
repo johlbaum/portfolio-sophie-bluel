@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+  let dataProjects = null;
+
   const categoriesSet = new Set();
 
   //Récupération des données depuis le back-end
@@ -10,7 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((data) => {
+      //Stocke la data dans la varirable globale dataProjects pour éviter un nouveau call API à chaque ouverture de la modale
+      dataProjects = data;
       showWorks(data);
+      //Converti les valeurs stockés dans l'objet Set en tableau
       const categoriesArray = Array.from(categoriesSet);
       showCategories(categoriesArray);
       filterProjectsByCategorie(data);
@@ -33,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       figure.appendChild(image);
       figure.appendChild(figcaption);
 
+      //Intègre dans l'objet Set toutes les catégories de projets pour ne conserver que les valeurs uniques
       categoriesSet.add(category.name);
     });
   };
@@ -65,6 +71,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 
+  //Affichage des projets dans la modale
+  const showModalProjects = (data) => {
+    const modalProjects = document.querySelector(".modal-projects");
+    data.forEach((project) => {
+      const projectContainer = document.createElement("div");
+      projectContainer.classList.add("modal-project");
+      const image = document.createElement("img");
+      const edit = document.createElement("p");
+      edit.textContent = "éditer";
+      image.src = project.imageUrl;
+      modalProjects.appendChild(projectContainer);
+      projectContainer.appendChild(image);
+      projectContainer.appendChild(edit);
+    });
+  };
+
+  //Vider le contenu dynmaique de la modale à sa fermeture
+  const emptyModal = () => {
+    const modalProjects = document.querySelector(".modal-projects");
+    while (modalProjects.firstChild) {
+      modalProjects.removeChild(modalProjects.firstChild);
+    }
+  };
+
   //Apparition du bouton modifier si l'utilisateur est logué + gestion de l'apparition de la modal
   const editProjectsButton = document.querySelector(".edit-projects");
   const modal = document.querySelector(".modal-container");
@@ -75,9 +105,11 @@ document.addEventListener("DOMContentLoaded", function () {
     editProjectsButton.classList.add("isLoggedIn");
     editProjectsButton.addEventListener("click", function () {
       modal.classList.add("modal-is-open");
+      showModalProjects(dataProjects);
     });
     closeModal.addEventListener("click", function () {
       modal.classList.remove("modal-is-open");
+      emptyModal();
     });
   }
 });
