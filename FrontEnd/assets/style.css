@@ -139,8 +139,13 @@ li:hover {
 
 .edit-projects {
 	margin-left: 20px;
-	display: flex;
 	cursor: pointer;
+	display: none;
+}
+
+.isLoggedIn {
+	display: block;
+	display: flex;
 }
 
 .filters {
