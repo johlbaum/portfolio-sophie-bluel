@@ -65,10 +65,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 
-  //Apparition du bouton modifier si l'utilisateur est logué
+  //Apparition du bouton modifier si l'utilisateur est logué + gestion de l'apparition de la modal
   const editProjectsButton = document.querySelector(".edit-projects");
+  const modal = document.querySelector(".modal-container");
+  const closeModal = document.querySelector(".close-modal");
+
   const userIsLoggedIn = localStorage.getItem("loginInformation");
   if (userIsLoggedIn) {
     editProjectsButton.classList.add("isLoggedIn");
+    editProjectsButton.addEventListener("click", function () {
+      modal.classList.add("modal-is-open");
+    });
+    closeModal.addEventListener("click", function () {
+      modal.classList.remove("modal-is-open");
+    });
   }
 });
