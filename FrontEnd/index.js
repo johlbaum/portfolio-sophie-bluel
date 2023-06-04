@@ -29,11 +29,14 @@ document.addEventListener("DOMContentLoaded", function () {
     data.forEach((work) => {
       const { imageUrl, title, category } = work;
       const gallery = document.querySelector(".gallery");
+
       const figure = document.createElement("figure");
       const image = document.createElement("img");
       const figcaption = document.createElement("figcaption");
+
       image.src = imageUrl;
       figcaption.innerText = title;
+
       gallery.appendChild(figure);
       figure.appendChild(image);
       figure.appendChild(figcaption);
@@ -76,13 +79,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const modalProjects = document.querySelector(".modal-projects");
     data.forEach((project) => {
       const projectContainer = document.createElement("div");
-      projectContainer.classList.add("modal-project");
+      const deleteIconAndImgProjectContainer = document.createElement("div");
       const image = document.createElement("img");
+      const deleteIcon = document.createElement("i");
       const edit = document.createElement("p");
-      edit.textContent = "éditer";
+
+      projectContainer.classList.add("modal-project");
+      deleteIconAndImgProjectContainer.classList.add(
+        "deleteIconAndImgProjectContainer"
+      );
       image.src = project.imageUrl;
+      deleteIcon.classList.add("fa", "regular", "fa-trash-can");
+      edit.textContent = "éditer";
+
       modalProjects.appendChild(projectContainer);
-      projectContainer.appendChild(image);
+      projectContainer.appendChild(deleteIconAndImgProjectContainer);
+      deleteIconAndImgProjectContainer.appendChild(image);
+      deleteIconAndImgProjectContainer.appendChild(deleteIcon);
       projectContainer.appendChild(edit);
     });
   };
