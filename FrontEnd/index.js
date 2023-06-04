@@ -89,7 +89,12 @@ document.addEventListener("DOMContentLoaded", function () {
         "deleteIconAndImgProjectContainer"
       );
       image.src = project.imageUrl;
-      deleteIcon.classList.add("fa", "regular", "fa-trash-can");
+      deleteIcon.classList.add(
+        "fa",
+        "regular",
+        "fa-trash-can",
+        "delete-project-icon"
+      );
       edit.textContent = "éditer";
 
       modalProjects.appendChild(projectContainer);
@@ -98,9 +103,39 @@ document.addEventListener("DOMContentLoaded", function () {
       deleteIconAndImgProjectContainer.appendChild(deleteIcon);
       projectContainer.appendChild(edit);
     });
+
+    //Suppression d'un projet
+    const deleteProjectIcon = document.querySelectorAll(".delete-project-icon");
+    const jsonLoginInformation = localStorage.getItem("loginInformation");
+    const loginInformation = JSON.parse(jsonLoginInformation);
+    const token = loginInformation.token;
+
+    deleteProjectIcon.forEach((curr, deleteIconIndex) => {
+      curr.addEventListener("click", function () {
+        data.forEach((currData, indexData) => {
+          if (deleteIconIndex === indexData) {
+            fetch(`http://localhost:5678/api/works/${currData.id}`, {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            })
+              .then(function (response) {
+                if (response.ok) {
+                  console.log("La ressource a été supprimée avec succès.");
+                }
+              })
+              .catch(function (error) {
+                console.error(error);
+              });
+          }
+        });
+      });
+    });
   };
 
-  //Vider le contenu dynmaique de la modale à sa fermeture
+  //Vider le contenu dynamique de la modale à sa fermeture
   const emptyModal = () => {
     const modalProjects = document.querySelector(".modal-projects");
     while (modalProjects.firstChild) {
