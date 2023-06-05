@@ -170,10 +170,14 @@ li:hover {
 	padding: 90px;
 	position: relative;
 	width: 30%;
-	
 }
 
-.close-modal {
+.modal-content h3 {
+	text-align: center;
+	margin: 0 0 40px 0;
+}
+
+.close-modal-icon {
 	position: absolute;
 	top: 20px;
 	right: 20px;
@@ -205,6 +209,33 @@ li:hover {
 	background-color: #000000;
   padding: 7px;
 	cursor: pointer;
+}
+
+.modal-features {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 30px;
+}
+
+.modal-features p {
+	padding: 10px;
+	cursor: pointer;
+}
+
+.back-to-photo-gallery-icon {
+	position: absolute;
+	top: 20px;
+	left: 20px;	
+	cursor: pointer;
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
 }
 
 .filters {

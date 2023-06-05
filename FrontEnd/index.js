@@ -145,19 +145,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Apparition du bouton modifier si l'utilisateur est logué + gestion de l'apparition de la modal
   const editProjectsButton = document.querySelector(".edit-projects");
-  const modal = document.querySelector(".modal-container");
-  const closeModal = document.querySelector(".close-modal");
+  const editProjectsButtonIcon =
+    editProjectsButton.querySelector(":first-child");
+  const editProjectsButtonPara =
+    editProjectsButton.querySelector(":nth-child(2)");
+  const modalContainer = document.querySelector(".modal-container");
+  const modalContent = document.querySelector(".modal-content");
+  const closeModalIcon = document.querySelectorAll(".close-modal-icon");
+  const addPictureContent = document.querySelector(".add-picture-content");
+  const photoGalleryContent = document.querySelector(".photo-gallery-content");
 
   const userIsLoggedIn = localStorage.getItem("loginInformation");
   if (userIsLoggedIn) {
     editProjectsButton.classList.add("isLoggedIn");
     editProjectsButton.addEventListener("click", function () {
-      modal.classList.add("modal-is-open");
+      modalContainer.classList.add("modal-is-open");
       showModalProjects(dataProjects);
     });
-    closeModal.addEventListener("click", function () {
-      modal.classList.remove("modal-is-open");
-      emptyModal();
+    closeModalIcon.forEach((curr) => {
+      curr.addEventListener("click", function () {
+        modalContainer.classList.remove("modal-is-open");
+        addPictureContent.classList.add("hide");
+        photoGalleryContent.classList.add("show");
+        emptyModal();
+      });
+    });
+    //Fermeture de la modale au clic en dehors de son contenu
+    document.addEventListener("click", function (e) {
+      if (
+        !modalContent.contains(e.target) &&
+        e.target !== editProjectsButtonIcon &&
+        e.target !== editProjectsButtonPara
+      ) {
+        modalContainer.classList.remove("modal-is-open");
+      }
     });
   }
+
+  //Changement du contenu de la modale : galerie photo -> Ajout photo
+  const addPictureButton = document.querySelector(".add-picture");
+  const backToPhotoGalleryIcon = document.querySelector(
+    ".back-to-photo-gallery-icon"
+  );
+
+  addPictureButton.addEventListener("click", function () {
+    photoGalleryContent.classList.toggle("show");
+    addPictureContent.classList.toggle("hide");
+  });
+
+  backToPhotoGalleryIcon.addEventListener("click", function () {
+    addPictureContent.classList.toggle("hide");
+    photoGalleryContent.classList.toggle("show");
+  });
 });
