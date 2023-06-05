@@ -96,10 +96,19 @@
                 <i class="fa-solid fa-xmark"></i>
               </div>
               <h3>Ajout photo</h3>
-              <p>Ajouter photo</p>
-              <p>Titre</p>
-              <p>Catégorie</p>
-              <p>Valider</p>
+              <form class="send-project-form">
+                <input type="file" />
+                <label for="title">Titre</label>
+                <input type="text" id="title" />
+                <label for="category">Catégories</label>
+                <select id="category">
+                  <option value=""></option>
+                  <option value="1">Objets</option>
+                  <option value="2">Appartements</option>
+                  <option value="3">Hôtels & restaurants</option>
+                </select>
+                <input type="submit" value="Valider" />
+              </form>
             </div>
           </div>
         </div>
