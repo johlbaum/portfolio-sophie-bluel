@@ -1,6 +1,7 @@
-import { deleteProject } from "./deleteProject.mjs";
+import { deleteWork } from "./deleteWork.mjs";
+import { addWork } from "./addWork.mjs";
 
-export const modalManager = (dataProjects) => {
+export const modalManager = (worksData) => {
   const editProjectsButton = document.querySelector(".edit-projects");
   const editProjectsButtonIcon =
     editProjectsButton.querySelector(":first-child");
@@ -8,6 +9,7 @@ export const modalManager = (dataProjects) => {
     editProjectsButton.querySelector(":nth-child(2)");
   const modalContainer = document.querySelector(".modal-container");
   const modalContent = document.querySelector(".modal-content");
+  const modalProjects = document.querySelector(".modal-projects");
   const closeModalIcon = document.querySelectorAll(".close-modal-icon");
   const addPictureContent = document.querySelector(".add-picture-content");
   const photoGalleryContent = document.querySelector(".photo-gallery-content");
@@ -16,18 +18,36 @@ export const modalManager = (dataProjects) => {
     ".back-to-photo-gallery-icon"
   );
 
-  //Vider le contenu dynamique de la modale à sa fermeture
   const emptyModal = () => {
-    const modalProjects = document.querySelector(".modal-projects");
     while (modalProjects.firstChild) {
       modalProjects.removeChild(modalProjects.firstChild);
     }
   };
 
-  //Affichage des projets dans la modale
-  const showModalProjects = (data) => {
-    const modalProjects = document.querySelector(".modal-projects");
-    data.forEach((project) => {
+  const updateWorksData = (workToDelete) => {
+    const updatedWorksData = worksData.filter((work) => {
+      return work.id !== workToDelete.id;
+    });
+    worksData = updatedWorksData;
+  };
+
+  const attachDeleteEventListeners = (worksData) => {
+    const deleteWorkIcons = document.querySelectorAll(".delete-project-icon");
+    deleteWorkIcons.forEach((deleteWorkIcon, deleteIconIndex) => {
+      deleteWorkIcon.addEventListener("click", function () {
+        worksData.forEach((workToDelete, workToDeleteIndex) => {
+          if (deleteIconIndex === workToDeleteIndex) {
+            deleteWork(workToDelete.id).then(() => {
+              updateWorksData(workToDelete);
+            });
+          }
+        });
+      });
+    });
+  };
+
+  const showModalProjects = (worksData) => {
+    worksData.forEach((project) => {
       const projectContainer = document.createElement("div");
       const deleteIconAndImgProjectContainer = document.createElement("div");
       const image = document.createElement("img");
@@ -35,6 +55,7 @@ export const modalManager = (dataProjects) => {
       const edit = document.createElement("p");
 
       projectContainer.classList.add("modal-project");
+      projectContainer.classList.add(`work-${project.id}`);
       deleteIconAndImgProjectContainer.classList.add(
         "deleteIconAndImgProjectContainer"
       );
@@ -53,29 +74,25 @@ export const modalManager = (dataProjects) => {
       deleteIconAndImgProjectContainer.appendChild(deleteIcon);
       projectContainer.appendChild(edit);
     });
+    attachDeleteEventListeners(worksData);
   };
 
-  // Vérifier si l'utilisateur est connecté
   const userIsLoggedIn = () => {
     return localStorage.getItem("loginInformation");
   };
 
-  //Ouvrir la modale et afficher les projets si l'utilisateur est connecté
   const openModal = () => {
     modalContainer.classList.add("modal-is-open");
     emptyModal();
-    showModalProjects(dataProjects);
+    showModalProjects(worksData);
   };
 
-  //Fermer la modale
   const closeModal = () => {
     modalContainer.classList.remove("modal-is-open");
     addPictureContent.classList.add("hide");
     photoGalleryContent.classList.add("show");
     emptyModal();
   };
-
-  //Fermeture de la modale au clic en dehors de son contenu
 
   const handleClickOutsideModal = (e) => {
     if (
@@ -88,14 +105,12 @@ export const modalManager = (dataProjects) => {
     }
   };
 
-  //Changement du contenu de la modale : galerie photo -> Ajout photo
   const toogleModalContent = () => {
     photoGalleryContent.classList.toggle("show");
     addPictureContent.classList.toggle("hide");
   };
 
-  if (userIsLoggedIn) {
-    deleteProject(dataProjects);
+  if (userIsLoggedIn()) {
     editProjectsButton.classList.add("isLoggedIn");
     editProjectsButton.addEventListener("click", openModal);
     closeModalIcon.forEach((curr) => {
@@ -104,5 +119,6 @@ export const modalManager = (dataProjects) => {
     document.addEventListener("click", handleClickOutsideModal);
     addPictureButton.addEventListener("click", toogleModalContent);
     backToPhotoGalleryIcon.addEventListener("click", toogleModalContent);
+    addWork();
   }
 };
