@@ -20,34 +20,6 @@ export const modalManager = (worksData) => {
   );
   const addProjectForm = document.querySelector(".send-project-form");
 
-  const emptyModal = () => {
-    while (modalProjects.firstChild) {
-      modalProjects.removeChild(modalProjects.firstChild);
-    }
-  };
-
-  const updateWorksData = (workToDelete) => {
-    const updatedWorksData = worksData.filter((work) => {
-      return work.id !== workToDelete.id;
-    });
-    worksData = updatedWorksData;
-  };
-
-  const attachDeleteEventListeners = (worksData) => {
-    const deleteWorkIcons = document.querySelectorAll(".delete-project-icon");
-    deleteWorkIcons.forEach((deleteWorkIcon, deleteIconIndex) => {
-      deleteWorkIcon.addEventListener("click", function () {
-        worksData.forEach((workToDelete, workToDeleteIndex) => {
-          if (deleteIconIndex === workToDeleteIndex) {
-            deleteWork(workToDelete.id).then(() => {
-              updateWorksData(workToDelete);
-            });
-          }
-        });
-      });
-    });
-  };
-
   const showModalProjects = (worksData) => {
     worksData.forEach((project) => {
       const projectContainer = document.createElement("div");
@@ -79,8 +51,19 @@ export const modalManager = (worksData) => {
     attachDeleteEventListeners(worksData);
   };
 
-  const userIsLoggedIn = () => {
-    return localStorage.getItem("loginInformation");
+  const attachDeleteEventListeners = (worksData) => {
+    const deleteWorkIcons = document.querySelectorAll(".delete-project-icon");
+    deleteWorkIcons.forEach((deleteWorkIcon, deleteIconIndex) => {
+      deleteWorkIcon.addEventListener("click", function () {
+        worksData.forEach((workToDelete, workToDeleteIndex) => {
+          if (deleteIconIndex === workToDeleteIndex) {
+            deleteWork(workToDelete.id).then(() => {
+              deleteWorkManager(workToDelete);
+            });
+          }
+        });
+      });
+    });
   };
 
   const openModal = () => {
@@ -93,7 +76,6 @@ export const modalManager = (worksData) => {
     modalContainer.classList.remove("modal-is-open");
     addPictureContent.classList.add("hide");
     photoGalleryContent.classList.add("show");
-    emptyModal();
   };
 
   const handleClickOutsideModal = (e) => {
@@ -102,7 +84,6 @@ export const modalManager = (worksData) => {
       e.target !== editProjectsButtonIcon &&
       e.target !== editProjectsButtonPara
     ) {
-      emptyModal();
       closeModal();
     }
   };
@@ -112,19 +93,44 @@ export const modalManager = (worksData) => {
     addPictureContent.classList.toggle("hide");
   };
 
-  const addNewProject = (newWork) => {
+  const emptyModal = () => {
+    while (modalProjects.firstChild) {
+      modalProjects.removeChild(modalProjects.firstChild);
+    }
+  };
+
+  const updateWorksDataAfterAdd = (newWork) => {
     worksData.push(newWork);
   };
 
-  const test = (newWork) => {
+  const updateWorksDataAfterDelete = (workToDelete) => {
+    const index = worksData.findIndex((work) => work.id === workToDelete.id);
+    if (index !== -1) {
+      worksData.splice(index, 1);
+    }
+  };
+
+  const addWorkManager = (newWork) => {
     setTimeout(() => {
       toogleModalContent();
       emptyModal();
-      addNewProject(newWork);
-      console.log(worksData);
+      updateWorksDataAfterAdd(newWork);
       showModalProjects(worksData);
       showWorks(worksData);
-    }, 1000);
+    }, 1500);
+  };
+
+  const deleteWorkManager = (workToDelete) => {
+    setTimeout(() => {
+      emptyModal();
+      updateWorksDataAfterDelete(workToDelete);
+      showModalProjects(worksData);
+      showWorks(worksData);
+    }, 1500);
+  };
+
+  const userIsLoggedIn = () => {
+    return localStorage.getItem("loginInformation");
   };
 
   if (userIsLoggedIn()) {
@@ -139,7 +145,7 @@ export const modalManager = (worksData) => {
     addProjectForm.addEventListener("submit", (e) => {
       e.preventDefault();
       addWork(e).then((newWork) => {
-        test(newWork);
+        addWorkManager(newWork);
       });
     });
   }

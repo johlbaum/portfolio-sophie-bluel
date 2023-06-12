@@ -17,7 +17,7 @@ export async function addWork(e) {
 
     setTimeout(() => {
       errorMessage.textContent = "";
-    }, 2000);
+    }, 1500);
   };
 
   if (

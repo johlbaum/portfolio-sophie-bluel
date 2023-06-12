@@ -239,15 +239,32 @@ li:hover {
 	display: block;
 }
 
-.works-categories {
+.filters {
 	display: flex;
 	justify-content: center;
 	margin: 50px 0;
 }
 
-.category {
-	cursor: pointer;
-	padding: 0 40px;
+.filter {
+	font-family: 'Syne';
+  font-weight: 700;
+  color: #1D6154;
+  
+  margin: 0 10px;
+  text-align: center;
+  border-radius: 60px;
+  border: 1px solid;
+  cursor: pointer;
+  padding: 12px 19px;
+}
+
+.remove-background {
+	background-color: #fff;
+}
+
+.filter.active {
+	background-color: #1D6154;
+	color: #fff;
 }
 
 .gallery {
