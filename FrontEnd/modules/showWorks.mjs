@@ -1,7 +1,11 @@
 export const showWorks = (data) => {
+  const gallery = document.querySelector(".gallery");
+  while (gallery.firstChild) {
+    gallery.removeChild(gallery.firstChild);
+  }
+
   data.forEach((work) => {
     const { imageUrl, title } = work;
-    const gallery = document.querySelector(".gallery");
 
     const figure = document.createElement("figure");
     const image = document.createElement("img");

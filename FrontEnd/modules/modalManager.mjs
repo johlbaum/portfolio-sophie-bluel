@@ -1,5 +1,6 @@
 import { deleteWork } from "./deleteWork.mjs";
 import { addWork } from "./addWork.mjs";
+import { showWorks } from "./showWorks.mjs";
 
 export const modalManager = (worksData) => {
   const editProjectsButton = document.querySelector(".edit-projects");
@@ -17,6 +18,7 @@ export const modalManager = (worksData) => {
   const backToPhotoGalleryIcon = document.querySelector(
     ".back-to-photo-gallery-icon"
   );
+  const addProjectForm = document.querySelector(".send-project-form");
 
   const emptyModal = () => {
     while (modalProjects.firstChild) {
@@ -110,6 +112,21 @@ export const modalManager = (worksData) => {
     addPictureContent.classList.toggle("hide");
   };
 
+  const addNewProject = (newWork) => {
+    worksData.push(newWork);
+  };
+
+  const test = (newWork) => {
+    setTimeout(() => {
+      toogleModalContent();
+      emptyModal();
+      addNewProject(newWork);
+      console.log(worksData);
+      showModalProjects(worksData);
+      showWorks(worksData);
+    }, 1000);
+  };
+
   if (userIsLoggedIn()) {
     editProjectsButton.classList.add("isLoggedIn");
     editProjectsButton.addEventListener("click", openModal);
@@ -119,6 +136,11 @@ export const modalManager = (worksData) => {
     document.addEventListener("click", handleClickOutsideModal);
     addPictureButton.addEventListener("click", toogleModalContent);
     backToPhotoGalleryIcon.addEventListener("click", toogleModalContent);
-    addWork();
+    addProjectForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      addWork(e).then((newWork) => {
+        test(newWork);
+      });
+    });
   }
 };

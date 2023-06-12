@@ -1,27 +1,22 @@
 export const filters = (data, showWorks) => {
-  const categoriesSet = new Set();
+  const uniqueCategoriesArray = [
+    ...new Set(data.map((item) => JSON.stringify(item.category))),
+  ].map((category) => JSON.parse(category));
 
-  data.forEach((work) => {
-    categoriesSet.add(work.category.name);
-  });
-
-  const categoriesArray = Array.from(categoriesSet);
-
-  categoriesArray.forEach((category) => {
+  uniqueCategoriesArray.forEach((category) => {
     const categories = document.querySelector(".works-categories");
     const categoryElement = document.createElement("p");
     categoryElement.classList.add("category");
-    categoryElement.innerText = category;
+    categoryElement.innerText = category.name;
     categories.appendChild(categoryElement);
   });
 
   const categories = document.querySelectorAll(".category");
-  let selectedCategory;
-  categories.forEach((category) => {
+  categories.forEach((category, index) => {
     category.addEventListener("click", function () {
-      selectedCategory = this.innerText;
+      const uniqueCategory = uniqueCategoriesArray[index];
       const filteredProjects = data.filter((work) => {
-        return work.category.name === selectedCategory;
+        return parseInt(work.categoryId) === uniqueCategory.id;
       });
 
       document.querySelector(".gallery").innerHTML = "";

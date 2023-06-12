@@ -10,7 +10,7 @@ export const deleteWork = async (workToDeleteId) => {
   };
 
   const showMessage = (message) => {
-    const deleteMessage = document.querySelector(".delete-message");
+    const deleteMessage = document.querySelector(".error-message");
     deleteMessage.textContent = message;
 
     setTimeout(() => {
@@ -42,6 +42,7 @@ export const deleteWork = async (workToDeleteId) => {
       );
     }
   } catch (error) {
+    showMessage("Erreur lors de la suppression du projet.");
     console.error(error);
     throw error;
   }
