@@ -1,6 +1,4 @@
-import { deleteWork } from "./deleteWork.mjs";
-import { addWork } from "./addWork.mjs";
-import { showWorks } from "./showWorks.mjs";
+import { showWorks, addWork, deleteWork } from "./work.mjs";
 
 export const modalManager = (worksData) => {
   const editProjectsButton = document.querySelector(".edit-projects");
