@@ -127,7 +127,7 @@ li:hover {
 
 .projects-title-and-edit {	
 	display: flex;
-  margin-bottom: 1em;
+  margin-bottom: 45px;
   align-items: center;
   justify-content: center;
 }
@@ -135,18 +135,12 @@ li:hover {
 .projects-title-and-edit h2,
 .projects-title-and-edit p {
   padding: 0 5px;
+
 }
 
-.edit-projects {
-	margin-left: 20px;
-	cursor: pointer;
-	display: none;
-}
 
-.isLoggedIn {
-	display: block;
-	display: flex;
-}
+
+
 
 .modal-container {
 	position: fixed;
@@ -242,7 +236,7 @@ li:hover {
 .filters {
 	display: flex;
 	justify-content: center;
-	margin: 50px 0;
+	
 }
 
 .filter {
@@ -273,6 +267,7 @@ li:hover {
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	margin-top: 35px;
 }
 
 .gallery img {
@@ -393,6 +388,49 @@ footer nav ul {
 	text-align: center;
 	border-radius: 60px;
 }
+
+.edit-projects {
+	margin-left: 20px;
+	cursor: pointer;
+}
+
+.edit-projects,
+.profile-picture-edit,
+.presentation-text-edit {
+	display: none;
+}
+
+.isLoggedIn.edit-projects,
+.isLoggedIn.profile-picture-edit,
+.isLoggedIn.presentation-text-edit {
+	display: block;
+	display: flex;
+}
+
+.filters.isLoggedIn {
+	display: none;
+}
+
+.profile-picture-edit {
+  
+  width: 80%;
+  margin: auto;
+  padding: 15px 0;
+}
+
+.profile-picture-edit p, 
+.presentation-text-edit p {
+	padding: 0 5px;
+}
+
+.profile-picture-edit p,
+.presentation-text-edit p,
+.profile-picture-edit i,
+.presentation-text-edit i {
+	cursor: pointer;
+}
+
+
 
 
 

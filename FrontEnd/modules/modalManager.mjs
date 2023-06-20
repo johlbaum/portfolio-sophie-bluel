@@ -2,6 +2,11 @@ import { showWorks, addWork, deleteWork } from "./work.mjs";
 
 export const modalManager = (worksData) => {
   const editProjectsButton = document.querySelector(".edit-projects");
+  const editPresentationText = document.querySelector(
+    ".presentation-text-edit"
+  );
+  const editProfilePicture = document.querySelector(".profile-picture-edit");
+  const filters = document.querySelector(".filters");
   const editProjectsButtonIcon =
     editProjectsButton.querySelector(":first-child");
   const editProjectsButtonPara =
@@ -133,6 +138,9 @@ export const modalManager = (worksData) => {
 
   if (userIsLoggedIn()) {
     editProjectsButton.classList.add("isLoggedIn");
+    editPresentationText.classList.add("isLoggedIn");
+    editProfilePicture.classList.add("isLoggedIn");
+    filters.classList.add("isLoggedIn");
     editProjectsButton.addEventListener("click", openModal);
     closeModalIcon.forEach((curr) => {
       curr.addEventListener("click", closeModal);
