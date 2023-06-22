@@ -1,11 +1,11 @@
-import { showWorks, getWorks } from "./modules/work.mjs";
+import { showWorks, getWorks } from "./modules/works.mjs";
 import { filters } from "./modules/filters.mjs";
-import { modalManager } from "./modules/modalManager.mjs";
+import { adminAccess } from "./modules/adminAccess.mjs";
 
 document.addEventListener("DOMContentLoaded", function () {
   getWorks().then((data) => {
     showWorks(data);
     filters(data, showWorks);
-    modalManager(data);
+    adminAccess(data);
   });
 });

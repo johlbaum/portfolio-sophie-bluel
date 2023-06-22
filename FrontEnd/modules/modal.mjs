@@ -1,12 +1,7 @@
-import { showWorks, addWork, deleteWork } from "./work.mjs";
+import { showWorks, addWork, deleteWork } from "./works.mjs";
 
-export const modalManager = (worksData) => {
+export const modal = (worksData) => {
   const editProjectsButton = document.querySelector(".edit-projects");
-  const editPresentationText = document.querySelector(
-    ".presentation-text-edit"
-  );
-  const editProfilePicture = document.querySelector(".profile-picture-edit");
-  const filters = document.querySelector(".filters");
   const editProjectsButtonIcon =
     editProjectsButton.querySelector(":first-child");
   const editProjectsButtonPara =
@@ -51,6 +46,7 @@ export const modalManager = (worksData) => {
       deleteIconAndImgProjectContainer.appendChild(deleteIcon);
       projectContainer.appendChild(edit);
     });
+
     attachDeleteEventListeners(worksData);
   };
 
@@ -132,27 +128,17 @@ export const modalManager = (worksData) => {
     }, 1500);
   };
 
-  const userIsLoggedIn = () => {
-    return localStorage.getItem("loginInformation");
-  };
-
-  if (userIsLoggedIn()) {
-    editProjectsButton.classList.add("isLoggedIn");
-    editPresentationText.classList.add("isLoggedIn");
-    editProfilePicture.classList.add("isLoggedIn");
-    filters.classList.add("isLoggedIn");
-    editProjectsButton.addEventListener("click", openModal);
-    closeModalIcon.forEach((curr) => {
-      curr.addEventListener("click", closeModal);
+  editProjectsButton.addEventListener("click", openModal);
+  closeModalIcon.forEach((curr) => {
+    curr.addEventListener("click", closeModal);
+  });
+  document.addEventListener("click", handleClickOutsideModal);
+  addPictureButton.addEventListener("click", toogleModalContent);
+  backToPhotoGalleryIcon.addEventListener("click", toogleModalContent);
+  addProjectForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    addWork(e).then((newWork) => {
+      addWorkManager(newWork);
     });
-    document.addEventListener("click", handleClickOutsideModal);
-    addPictureButton.addEventListener("click", toogleModalContent);
-    backToPhotoGalleryIcon.addEventListener("click", toogleModalContent);
-    addProjectForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      addWork(e).then((newWork) => {
-        addWorkManager(newWork);
-      });
-    });
-  }
+  });
 };
