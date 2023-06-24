@@ -34,15 +34,13 @@ export const showWorks = (data) => {
   });
 };
 
-export async function addWork(e) {
+export async function addWork(e, imageFile) {
   const jsonLoginInformation = localStorage.getItem("loginInformation");
   const loginInformation = JSON.parse(jsonLoginInformation);
   const token = loginInformation.token;
 
   const formData = new FormData();
 
-  const fileInput = document.querySelector('input[type="file"]');
-  const imageFile = fileInput.files[0];
   formData.append("image", imageFile);
   formData.append("title", e.target.elements.title.value);
   formData.append("category", e.target.elements.category.value);
@@ -75,9 +73,9 @@ export async function addWork(e) {
     });
 
     if (response.ok) {
-      const data = await response.json();
+      const newWork = await response.json();
       showMessage("Le projet a bien été ajouté.");
-      return data;
+      return newWork;
     } else {
       return Promise.reject(new Error("Erreur lors de l'ajout d'un projet."));
     }

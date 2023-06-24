@@ -310,7 +310,7 @@ input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
-	background-color: #1D6154;
+	background-color: #A7A7A7;
 	margin : 2em auto ;
 	width: 180px;
 	text-align: center;
@@ -429,6 +429,62 @@ footer nav ul {
 .presentation-text-edit i {
 	cursor: pointer;
 }
+
+#img-input {
+	display: none;
+}
+
+.add-img-input-block {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	background-color: #E8F1F6;
+	height: 169px;
+}
+
+.img-input-elements {
+	display: flex;
+	flex-direction: column;
+	padding: 30px;
+}
+
+.img-input-elements i {
+	color: #B9C5CC;
+	margin: 10px 0;
+}
+
+.img-preview {
+	display: none;
+}
+
+#file-label {
+	color: #306685;
+	padding: 10px 33px;
+	cursor: pointer;
+	border-radius: 50px;
+	background: #CBD6DC;
+}
+
+.display-img-preview {
+	display: block;
+}
+
+.add-img-input-block img {
+	width: 35%;
+	height: 100%;
+	margin: auto;
+	object-fit: cover;
+}
+
+.hide-img-input-elements {
+	display: none;
+}
+
+.submit-is-valid {
+	background-color: #1D6154!important;
+}
+
+
 
 
 

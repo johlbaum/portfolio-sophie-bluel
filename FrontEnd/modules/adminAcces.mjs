@@ -1,6 +1,6 @@
 import { modal } from "./modal.mjs";
 
-export const adminAccess = (data) => {
+export const adminAcces = (data) => {
   const adminAccess = document.querySelector(".admin-access");
   const editProjectsButton = document.querySelector(".edit-projects");
   const editPresentationText = document.querySelector(

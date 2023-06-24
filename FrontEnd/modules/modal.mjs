@@ -1,4 +1,5 @@
-import { showWorks, addWork, deleteWork } from "./works.mjs";
+import { showWorks, deleteWork } from "./works.mjs";
+import { addWorkForm } from "./addWorkForm.mjs";
 
 export const modal = (worksData) => {
   const editProjectsButton = document.querySelector(".edit-projects");
@@ -16,7 +17,6 @@ export const modal = (worksData) => {
   const backToPhotoGalleryIcon = document.querySelector(
     ".back-to-photo-gallery-icon"
   );
-  const addProjectForm = document.querySelector(".send-project-form");
 
   const showModalProjects = (worksData) => {
     worksData.forEach((project) => {
@@ -110,6 +110,7 @@ export const modal = (worksData) => {
   };
 
   const addWorkManager = (newWork) => {
+    console.log("test");
     setTimeout(() => {
       toogleModalContent();
       emptyModal();
@@ -135,10 +136,5 @@ export const modal = (worksData) => {
   document.addEventListener("click", handleClickOutsideModal);
   addPictureButton.addEventListener("click", toogleModalContent);
   backToPhotoGalleryIcon.addEventListener("click", toogleModalContent);
-  addProjectForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    addWork(e).then((newWork) => {
-      addWorkManager(newWork);
-    });
-  });
+  addWorkForm(addWorkManager);
 };
