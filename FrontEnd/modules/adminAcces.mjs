@@ -2,7 +2,7 @@ import { modal } from "./modal.mjs";
 
 export const adminAcces = (data) => {
   const adminAccess = document.querySelector(".admin-access");
-  const editProjectsButton = document.querySelector(".edit-projects");
+  const editWorksButton = document.querySelector(".edit-works");
   const editPresentationText = document.querySelector(
     ".presentation-text-edit"
   );
@@ -16,7 +16,7 @@ export const adminAcces = (data) => {
 
   const logIn = () => {
     adminAccess.innerText = "logout";
-    editProjectsButton.classList.add("isLoggedIn");
+    editWorksButton.classList.add("isLoggedIn");
     editPresentationText.classList.add("isLoggedIn");
     editProfilePicture.classList.add("isLoggedIn");
     filters.classList.add("isLoggedIn");
@@ -28,7 +28,7 @@ export const adminAcces = (data) => {
     adminAccess.innerText = "login";
     localStorage.removeItem("loginInformation");
     localStorage.clear();
-    editProjectsButton.classList.remove("isLoggedIn");
+    editWorksButton.classList.remove("isLoggedIn");
     editPresentationText.classList.remove("isLoggedIn");
     editProfilePicture.classList.remove("isLoggedIn");
     filters.classList.remove("isLoggedIn");

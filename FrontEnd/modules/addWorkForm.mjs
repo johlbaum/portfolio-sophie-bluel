@@ -1,7 +1,7 @@
 import { addWork } from "./works.mjs";
 
 export const addWorkForm = (addWorkManagerCallback) => {
-  const addProjectForm = document.querySelector(".send-project-form");
+  const addProjectForm = document.querySelector(".send-work-form");
   const imgInput = document.getElementById("img-input");
   const imgPreview = document.querySelector(".img-preview");
   const imgInputElements = document.querySelector(".img-input-elements");

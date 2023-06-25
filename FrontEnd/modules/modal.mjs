@@ -2,14 +2,12 @@ import { showWorks, deleteWork } from "./works.mjs";
 import { addWorkForm } from "./addWorkForm.mjs";
 
 export const modal = (worksData) => {
-  const editProjectsButton = document.querySelector(".edit-projects");
-  const editProjectsButtonIcon =
-    editProjectsButton.querySelector(":first-child");
-  const editProjectsButtonPara =
-    editProjectsButton.querySelector(":nth-child(2)");
+  const editWorksButton = document.querySelector(".edit-works");
+  const editWorksButtonIcon = editWorksButton.querySelector(":first-child");
+  const editWorksButtonPara = editWorksButton.querySelector(":nth-child(2)");
   const modalContainer = document.querySelector(".modal-container");
   const modalContent = document.querySelector(".modal-content");
-  const modalProjects = document.querySelector(".modal-projects");
+  const modalWorks = document.querySelector(".modal-works");
   const closeModalIcon = document.querySelectorAll(".close-modal-icon");
   const addPictureContent = document.querySelector(".add-picture-content");
   const photoGalleryContent = document.querySelector(".photo-gallery-content");
@@ -18,40 +16,50 @@ export const modal = (worksData) => {
     ".back-to-photo-gallery-icon"
   );
 
-  const showModalProjects = (worksData) => {
-    worksData.forEach((project) => {
-      const projectContainer = document.createElement("div");
-      const deleteIconAndImgProjectContainer = document.createElement("div");
-      const image = document.createElement("img");
+  const showModalWorks = (worksData) => {
+    worksData.forEach((work) => {
+      const worksContainer = document.createElement("div");
+      const workImgContainer = document.createElement("div");
+      const workImage = document.createElement("img");
       const deleteIcon = document.createElement("i");
-      const edit = document.createElement("p");
+      const workEdit = document.createElement("p");
 
-      projectContainer.classList.add("modal-project");
-      projectContainer.classList.add(`work-${project.id}`);
-      deleteIconAndImgProjectContainer.classList.add(
-        "deleteIconAndImgProjectContainer"
-      );
-      image.src = project.imageUrl;
+      worksContainer.classList.add("modal-work");
+      worksContainer.classList.add(`work-${work.id}`);
+      workImgContainer.classList.add("work-img-container");
+      workImage.src = work.imageUrl;
       deleteIcon.classList.add(
         "fa",
         "regular",
         "fa-trash-can",
-        "delete-project-icon"
+        "delete-work-icon"
       );
-      edit.textContent = "éditer";
+      workEdit.textContent = "éditer";
 
-      modalProjects.appendChild(projectContainer);
-      projectContainer.appendChild(deleteIconAndImgProjectContainer);
-      deleteIconAndImgProjectContainer.appendChild(image);
-      deleteIconAndImgProjectContainer.appendChild(deleteIcon);
-      projectContainer.appendChild(edit);
+      modalWorks.appendChild(worksContainer);
+      worksContainer.appendChild(workImgContainer);
+      workImgContainer.appendChild(workImage);
+      workImgContainer.appendChild(deleteIcon);
+      worksContainer.appendChild(workEdit);
     });
+
+    const firstModalWork = document.querySelector(".modal-work:first-child");
+    const firstWorkImgContainer = firstModalWork.querySelector(
+      ".work-img-container"
+    );
+    const moveWorkIcon = document.createElement("i");
+    moveWorkIcon.classList.add(
+      "fa-solid",
+      "fa-up-down-left-right",
+      "move-work-icon"
+    );
+    firstWorkImgContainer.appendChild(moveWorkIcon);
 
     attachDeleteEventListeners(worksData);
   };
 
   const attachDeleteEventListeners = (worksData) => {
-    const deleteWorkIcons = document.querySelectorAll(".delete-project-icon");
+    const deleteWorkIcons = document.querySelectorAll(".delete-work-icon");
     deleteWorkIcons.forEach((deleteWorkIcon, deleteIconIndex) => {
       deleteWorkIcon.addEventListener("click", function () {
         worksData.forEach((workToDelete, workToDeleteIndex) => {
@@ -68,7 +76,7 @@ export const modal = (worksData) => {
   const openModal = () => {
     modalContainer.classList.add("modal-is-open");
     emptyModal();
-    showModalProjects(worksData);
+    showModalWorks(worksData);
   };
 
   const closeModal = () => {
@@ -80,8 +88,8 @@ export const modal = (worksData) => {
   const handleClickOutsideModal = (e) => {
     if (
       !modalContent.contains(e.target) &&
-      e.target !== editProjectsButtonIcon &&
-      e.target !== editProjectsButtonPara
+      e.target !== editWorksButtonIcon &&
+      e.target !== editWorksButtonPara
     ) {
       closeModal();
     }
@@ -93,8 +101,8 @@ export const modal = (worksData) => {
   };
 
   const emptyModal = () => {
-    while (modalProjects.firstChild) {
-      modalProjects.removeChild(modalProjects.firstChild);
+    while (modalWorks.firstChild) {
+      modalWorks.removeChild(modalWorks.firstChild);
     }
   };
 
@@ -110,12 +118,11 @@ export const modal = (worksData) => {
   };
 
   const addWorkManager = (newWork) => {
-    console.log("test");
     setTimeout(() => {
       toogleModalContent();
       emptyModal();
       updateWorksDataAfterAdd(newWork);
-      showModalProjects(worksData);
+      showModalWorks(worksData);
       showWorks(worksData);
     }, 1500);
   };
@@ -124,12 +131,12 @@ export const modal = (worksData) => {
     setTimeout(() => {
       emptyModal();
       updateWorksDataAfterDelete(workToDelete);
-      showModalProjects(worksData);
+      showModalWorks(worksData);
       showWorks(worksData);
     }, 1500);
   };
 
-  editProjectsButton.addEventListener("click", openModal);
+  editWorksButton.addEventListener("click", openModal);
   closeModalIcon.forEach((curr) => {
     curr.addEventListener("click", closeModal);
   });
