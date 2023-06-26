@@ -4,20 +4,20 @@ export const getWorks = async () => {
     if (!response.ok) {
       throw new Error("Erreur HTTP " + response.status);
     }
-    const data = await response.json();
-    return data;
+    const worksData = await response.json();
+    return worksData;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const showWorks = (data) => {
+export const showWorks = (worksData) => {
   const gallery = document.querySelector(".gallery");
   while (gallery.firstChild) {
     gallery.removeChild(gallery.firstChild);
   }
 
-  data.forEach((work) => {
+  worksData.forEach((work) => {
     const { imageUrl, title } = work;
 
     const figure = document.createElement("figure");

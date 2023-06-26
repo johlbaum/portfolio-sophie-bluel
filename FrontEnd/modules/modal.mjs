@@ -1,5 +1,6 @@
 import { showWorks, deleteWork } from "./works.mjs";
 import { addWorkForm } from "./addWorkForm.mjs";
+import { filters } from "./filters.mjs";
 
 export const modal = (worksData) => {
   const editWorksButton = document.querySelector(".edit-works");
@@ -133,6 +134,7 @@ export const modal = (worksData) => {
       updateWorksDataAfterDelete(workToDelete);
       showModalWorks(worksData);
       showWorks(worksData);
+      filters(worksData);
     }, 1500);
   };
 
