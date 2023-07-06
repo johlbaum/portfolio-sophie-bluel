@@ -11,6 +11,7 @@ export class AddWorkForm {
     this.submitButton = document.getElementById("submit-button");
     this.imageFile = "";
     this.addWorkManager = addWorkManager;
+    this.addWorkFormMessage = document.querySelector(".add-work-form-message");
     this.works = new Works();
     this.initializeListeners();
   }
@@ -28,7 +29,7 @@ export class AddWorkForm {
     this.imageFile = e.target.files[0];
   };
 
-  checkFormCompletion = () => {
+  updateSubmitButtonColor = () => {
     const isFormComplete =
       this.titleInput.value !== "" &&
       this.categorySelect.value !== "" &&
@@ -37,6 +38,25 @@ export class AddWorkForm {
     isFormComplete
       ? this.submitButton.classList.add("submit-is-valid")
       : this.submitButton.classList.remove("submit-is-valid");
+  };
+
+  showAlertMessage = (message) => {
+    this.addWorkFormMessage.textContent = message;
+
+    setTimeout(() => {
+      this.addWorkFormMessage.textContent = "";
+    }, 1500);
+  };
+
+  validateFormFields = (e) => {
+    if (
+      !this.imageFile ||
+      e.target.elements.title.value === "" ||
+      e.target.elements.category.value === ""
+    ) {
+      this.showAlertMessage("Veuillez remplir tous les champs");
+      return false;
+    }
   };
 
   resetForm = () => {
@@ -52,23 +72,25 @@ export class AddWorkForm {
 
   submitHandler = (e) => {
     e.preventDefault();
-    this.works
-      .addWork(e, this.imageFile)
-      .then((newWork) => {
-        this.addWorkManager(newWork);
-        this.resetForm();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (this.validateFormFields(e) !== false) {
+      this.works
+        .addWork(e, this.imageFile)
+        .then((newWork) => {
+          this.addWorkManager(newWork);
+          this.resetForm();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   initializeListeners = () => {
-    this.titleInput.addEventListener("input", this.checkFormCompletion);
-    this.categorySelect.addEventListener("input", this.checkFormCompletion);
-    this.imgInput.addEventListener("input", this.checkFormCompletion);
-    this.addProjectForm.addEventListener("submit", this.submitHandler);
+    this.titleInput.addEventListener("input", this.updateSubmitButtonColor);
+    this.categorySelect.addEventListener("input", this.updateSubmitButtonColor);
+    this.imgInput.addEventListener("input", this.updateSubmitButtonColor);
     this.imgInput.addEventListener("change", this.getImageFile);
     this.imgInput.addEventListener("change", this.showImagePreview);
+    this.addProjectForm.addEventListener("submit", this.submitHandler);
   };
 }

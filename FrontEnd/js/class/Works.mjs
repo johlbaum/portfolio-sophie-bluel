@@ -46,25 +46,14 @@ export class Works {
     formData.append("title", e.target.elements.title.value);
     formData.append("category", e.target.elements.category.value);
 
-    const showMessage = (message) => {
-      const errorMessage = document.querySelector(
-        ".add-work-form-alert-message"
-      );
-      errorMessage.textContent = message;
+    const showSuccessMessage = (message) => {
+      const addWorkMessage = document.querySelector(".add-work-form-message");
+      addWorkMessage.textContent = message;
 
       setTimeout(() => {
-        errorMessage.textContent = "";
+        addWorkMessage.textContent = "";
       }, 1500);
     };
-
-    if (
-      !imageFile ||
-      e.target.elements.title.value === "" ||
-      e.target.elements.category.value === ""
-    ) {
-      showMessage("Veuillez remplir tous les champs");
-      throw new Error("Not all form fields are filled in.");
-    }
 
     try {
       const response = await fetch("http://localhost:5678/api/works", {
@@ -77,7 +66,7 @@ export class Works {
 
       if (response.ok) {
         const newWork = await response.json();
-        showMessage("Le projet a bien été ajouté.");
+        showSuccessMessage("Le projet a bien été ajouté");
         return newWork;
       } else {
         return Promise.reject(new Error("Erreur lors de l'ajout d'un projet."));
