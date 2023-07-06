@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,46 +10,47 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./assets/style.css" />
-
+    <link rel="icon" href="./assets/fav/favicon.ico" type="image/x-icon" />
     <script src="./js/login.js"></script>
   </head>
   <body>
-    <header>
-      <a href="index.html"
-        ><h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1></a
-      >
-      <nav>
-        <ul>
-          <li>
-            <a href="index.html#portfolio">projets</a>
-          </li>
-          <li>
-            <a href="index.html#contact">contact</a>
-          </li>
-          <li>login</li>
-          <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
-        </ul>
-      </nav>
-    </header>
-  </body>
-  <main>
-    <section id="login">
-      <h2>Log In</h2>
-      <form class="login-form">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" />
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" />
-        <input type="submit" value="Se connecter" />
-      </form>
-      <p class="log-in-message"></p>
-    </section>
-  </main>
-  <footer class="footer-login">
-    <nav>
+    <div class="main-container">
+      <header>
+        <a href="index.html"
+          ><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a
+        >
+        <nav>
+          <ul>
+            <li>
+              <a href="index.html#portfolio">projets</a>
+            </li>
+            <li>
+              <a href="index.html#contact">contact</a>
+            </li>
+            <li class="login-nav-item">login</li>
+            <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+          </ul>
+        </nav>
+      </header>
+      <main class="main-login">
+        <section id="login">
+          <h2>Log In</h2>
+          <form class="login-form">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" />
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" />
+            <input type="submit" value="Se connecter" class="submit-form" />
+          </form>
+          <p class="forgot-passord">Mot de passe oublié</p>
+          <p class="login-message"></p>
+        </section>
+      </main>
+    </div>
+    <footer class="footer-login">
       <ul>
         <li>Mentions Légales</li>
       </ul>
-    </nav>
-  </footer>
+    </footer>
+  </body>
 </html>
