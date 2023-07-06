@@ -41,6 +41,7 @@ export class Modal {
       workImage.src = work.imageUrl;
       deleteIcon.classList.add(
         "fa",
+        "fa-2xs",
         "regular",
         "fa-trash-can",
         "delete-work-icon"
@@ -54,18 +55,21 @@ export class Modal {
       worksContainer.appendChild(workEdit);
     });
 
-    //Add a move icon on the image of the first project of the modal.
+    //Add a move icon on the image of the first project of the modal if it contains at least one project.
     const firstModalWork = document.querySelector(".modal-work:first-child");
-    const firstWorkImgContainer = firstModalWork.querySelector(
-      ".work-img-container"
-    );
-    const moveWorkIcon = document.createElement("i");
-    moveWorkIcon.classList.add(
-      "fa-solid",
-      "fa-up-down-left-right",
-      "move-work-icon"
-    );
-    firstWorkImgContainer.appendChild(moveWorkIcon);
+    if (firstModalWork !== null) {
+      const firstWorkImgContainer = firstModalWork.querySelector(
+        ".work-img-container"
+      );
+      const moveWorkIcon = document.createElement("i");
+      moveWorkIcon.classList.add(
+        "fa-solid",
+        "fa-2xs",
+        "fa-up-down-left-right",
+        "move-work-icon"
+      );
+      firstWorkImgContainer.appendChild(moveWorkIcon);
+    }
 
     this.attachDeleteEventListeners(this.worksData);
   };
@@ -95,6 +99,7 @@ export class Modal {
     this.modalContainer.classList.remove("modal-is-open");
     this.addPictureContent.classList.add("hide");
     this.photoGalleryContent.classList.add("show");
+    this.addWorkForm.resetForm();
   };
 
   handleClickOutsideModal = (e) => {
