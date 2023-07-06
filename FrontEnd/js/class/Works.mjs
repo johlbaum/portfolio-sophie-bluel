@@ -47,7 +47,9 @@ export class Works {
     formData.append("category", e.target.elements.category.value);
 
     const showMessage = (message) => {
-      const errorMessage = document.querySelector(".form-message");
+      const errorMessage = document.querySelector(
+        ".add-work-form-alert-message"
+      );
       errorMessage.textContent = message;
 
       setTimeout(() => {
@@ -60,7 +62,7 @@ export class Works {
       e.target.elements.title.value === "" ||
       e.target.elements.category.value === ""
     ) {
-      showMessage("Il faut remplir tous les champs du formulaire !");
+      showMessage("Veuillez remplir tous les champs");
       throw new Error("Not all form fields are filled in.");
     }
 
@@ -87,7 +89,7 @@ export class Works {
 
   deleteWork = async (workToDeleteId) => {
     const showMessage = (message) => {
-      const deleteMessage = document.querySelector(".error-message");
+      const deleteMessage = document.querySelector(".delete-picture-message");
       deleteMessage.textContent = message;
 
       setTimeout(() => {
