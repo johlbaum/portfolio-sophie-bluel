@@ -67,6 +67,7 @@ export class AddWorkForm {
       this.imgInput.value = "";
       this.imgInputElements.classList.remove("hide-img-input-elements");
       this.imgPreview.classList.remove("display-img-preview");
+      this.updateSubmitButtonColor();
     }, 1500);
   };
 
