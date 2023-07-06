@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.querySelector(".login-form");
-  const loginMessage = document.querySelector(".log-in-message");
+  const loginMessage = document.querySelector(".login-message");
 
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!email || !password) {
       loginMessage.innerHTML = "Veuillez remplir tous les champs";
+      setTimeout(() => {
+        loginMessage.innerHTML = "";
+      }, 1500);
       return;
     }
 
@@ -32,14 +35,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
           return response.json();
         } else {
-          loginMessage.innerHTML = "Identifiants incorrects";
-          throw new Error("Identifiants incorrects");
+          loginMessage.innerHTML = "Email ou mot de passe incorrect";
+          setTimeout(() => {
+            loginMessage.innerHTML = "";
+          }, 1500);
+          throw new Error("Email ou mot de passe incorrect");
         }
       })
       .then(function (data) {
         const loginInformation = JSON.stringify(data);
         window.localStorage.setItem("loginInformation", loginInformation);
-        loginMessage.innerHTML = "Connexion réussie !";
+        loginMessage.innerHTML = "Vous êtes maintenant connecté(e)";
         setTimeout(function () {
           window.location.href = "index.html";
         }, 1000);
