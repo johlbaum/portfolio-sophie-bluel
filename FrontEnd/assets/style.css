@@ -72,6 +72,7 @@ body {
 .main-container {
 	max-width: 1140px;
   margin: auto;
+	padding: 0 20px;
 }
 
 /****** Header ******/
@@ -140,7 +141,7 @@ nav ul li a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 90px 0;
+	margin: 80px 0;
 }
 
 #introduction figure {
@@ -184,7 +185,7 @@ nav ul li a {
   border: 1px solid;
   cursor: pointer;
   padding: 12px 19px;
-	font-size: 1em;
+	font-size: 0.875em;
 }
 
 .filter.active {
@@ -252,7 +253,7 @@ nav ul li a {
 }
 
 .title-is-logged-in {
-	margin-bottom: 92px;
+	margin-bottom: 80px;
 }
 
 /****** Gallery ******/
@@ -660,6 +661,98 @@ footer ul li {
 	text-align: center;
 	margin-top: 30px;
 	height: 30px;
+}
+
+/****** Media queries ******/
+
+@media (max-width: 767px) {
+	body {
+		font-size: 14px;
+	}
+
+	header {
+		flex-direction: column;
+		height: 100px;
+		padding: 30px 0 0 0;
+	}
+
+	nav ul {
+		justify-content: space-between;
+	}
+
+	nav li {
+    padding: 13px 0;
+	}
+
+	#introduction {
+  	flex-direction: column;
+		margin: 20px 0;
+	}
+
+	#introduction figure {
+    width: 100%;
+    margin-right: 0;
+	}
+
+	#introduction article {
+    width: 100%;
+    margin-left: 0;
+		margin-top: 15px;
+	}
+
+	.filters {
+		flex-wrap: wrap;
+		margin: 35px 0;
+	}
+
+	.filter {
+		margin: 10px 5px;
+	}
+
+	.gallery {
+    grid-template-columns: 1fr 1fr;
+	}
+
+	#contact {
+    width: 100%;
+	}
+
+	.title-is-logged-in {
+    margin-bottom: 50px;
+	}
+
+	.main-login {
+    height: calc(100vh - 190px);
+	}
+
+	#login {
+    width: 100%;
+	}
+
+	footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	}
+
+	footer ul li {
+		padding: 0;
+	}
+
+	.modal-works {
+    grid-template-columns: 78px 78px 78px;
+		justify-content: center;
+	}
+
+	.modal-is-open {
+    overflow: scroll;
+	}
+
+	.modal-content {
+    padding: 60px 10px 55px 10px;
+    border-radius: 0;
+    min-width: 80%;
+	}
 }
 
 
