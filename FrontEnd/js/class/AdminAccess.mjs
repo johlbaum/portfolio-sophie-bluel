@@ -42,28 +42,28 @@ export class AdminAccess {
     //If a project has been added, check if the category to which it belongs is already present in worksData and therefore already displayed.
     const isLastCategoryInWorksData = () => {
       const lastObject = worksData[worksData.length - 1];
-      const lastCategoryId = parseInt(lastObject.categoryId);
-      let isLastCategoryInWorksData = false;
 
-      for (let i = 0; i < worksData.length - 1; i++) {
-        const obj = worksData[i];
-        if (obj.categoryId === lastCategoryId) {
-          isLastCategoryInWorksData = true;
-          break;
+      if (lastObject !== undefined) {
+        const lastCategoryId = parseInt(lastObject.categoryId);
+        let isLastCategoryInWorksData = false;
+
+        for (let i = 0; i < worksData.length; i++) {
+          const obj = worksData[i];
+
+          if (obj.categoryId === lastCategoryId) {
+            isLastCategoryInWorksData = true;
+            break;
+          }
         }
-      }
 
-      return isLastCategoryInWorksData;
+        return isLastCategoryInWorksData;
+      }
     };
 
     const lastObject = worksData[worksData.length - 1];
-    //Handle the case where there are no works data because it is empty.
-    if (lastObject !== undefined) {
-      const isLastCategoryIdNotNumber =
-        typeof lastObject.categoryId !== "number";
 
-      //If categoryId property of the last worksData object have a number value, it means that no project has been added. It is therefore not necessary to update the filters.
-      if (isLastCategoryInWorksData() === false && isLastCategoryIdNotNumber) {
+    if (lastObject !== undefined) {
+      if (isLastCategoryInWorksData() === false) {
         this.filters.setupFilters(worksData, isLastCategoryInWorksData());
       }
     }
