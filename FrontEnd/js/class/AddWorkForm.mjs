@@ -60,6 +60,7 @@ export class AddWorkForm {
   };
 
   resetForm = () => {
+    this.submitButton.classList.remove("submit-is-valid");
     setTimeout(() => {
       this.titleInput.value = "";
       this.categorySelect.value = "";
@@ -67,13 +68,15 @@ export class AddWorkForm {
       this.imgInput.value = "";
       this.imgInputElements.classList.remove("hide-img-input-elements");
       this.imgPreview.classList.remove("display-img-preview");
-      this.updateSubmitButtonColor();
+      this.submitButton.disabled = false;
     }, 1500);
   };
 
   submitHandler = (e) => {
     e.preventDefault();
-    if (this.validateFormFields(e) !== false) {
+    if (!this.submitButton.disabled && this.validateFormFields(e) !== false) {
+      this.submitButton.disabled = true;
+
       this.works
         .addWork(e, this.imageFile)
         .then((newWork) => {
