@@ -12,14 +12,10 @@ export class Filters {
     }
   };
 
-  setUniqueCategoriesArray = async (worksData, isLastCategoryInWorksData) => {
-    //Adding a project does not return a category property that is associated with an Id and a name, we must fetch to add the new category.
+  setUniqueCategoriesArray = async (worksData, shouldUpdateProjects) => {
     try {
       const updatedWorksData =
-        isLastCategoryInWorksData !== true &&
-        typeof isLastCategoryInWorksData !== "undefined"
-          ? await this.works.getWorks()
-          : worksData;
+        shouldUpdateProjects == true ? await this.works.getWorks() : worksData;
 
       const uniqueCategories = [
         ...new Set(
@@ -86,11 +82,11 @@ export class Filters {
     });
   };
 
-  setupFilters = async (worksData, isLastCategoryInWorksData) => {
+  setupFilters = async (worksData, shouldUpdateProjects) => {
     this.resetFilters();
     const uniqueCategoriesArray = await this.setUniqueCategoriesArray(
       worksData,
-      isLastCategoryInWorksData
+      shouldUpdateProjects
     );
     this.addAllToFiltersCategories(uniqueCategoriesArray);
     this.createFilterElements(uniqueCategoriesArray);

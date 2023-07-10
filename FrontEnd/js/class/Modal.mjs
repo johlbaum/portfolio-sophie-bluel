@@ -152,7 +152,6 @@ export class Modal {
       this.updateWorksDataAfterDelete(workToDelete);
       this.showModalWorks(this.worksData);
       this.works.showWorks(this.worksData);
-      this.filters.setupFilters(this.worksData);
     }, 1500);
   };
 

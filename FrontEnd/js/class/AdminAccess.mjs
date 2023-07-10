@@ -39,34 +39,7 @@ export class AdminAccess {
     this.filtersContainer.classList.remove("is-logged-in");
     this.worksTitleAndEdit.classList.remove("title-is-logged-in");
 
-    //If a project has been added, check if the category to which it belongs is already present in worksData and therefore already displayed.
-    const isLastCategoryInWorksData = () => {
-      const lastObject = worksData[worksData.length - 1];
-
-      if (lastObject !== undefined) {
-        const lastCategoryId = parseInt(lastObject.categoryId);
-        let isLastCategoryInWorksData = false;
-
-        for (let i = 0; i < worksData.length; i++) {
-          const obj = worksData[i];
-
-          if (obj.categoryId === lastCategoryId) {
-            isLastCategoryInWorksData = true;
-            break;
-          }
-        }
-
-        return isLastCategoryInWorksData;
-      }
-    };
-
-    const lastObject = worksData[worksData.length - 1];
-
-    if (lastObject !== undefined) {
-      if (isLastCategoryInWorksData() === false) {
-        this.filters.setupFilters(worksData, isLastCategoryInWorksData());
-      }
-    }
+    this.filters.setupFilters(worksData, true);
   };
 
   handleAdminAccess = (worksData) => {

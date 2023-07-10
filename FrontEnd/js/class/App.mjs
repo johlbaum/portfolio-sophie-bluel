@@ -12,7 +12,7 @@ export class App {
   init = () => {
     this.works.getWorks().then((worksData) => {
       this.works.showWorks(worksData);
-      this.filters.setupFilters(worksData);
+      this.filters.setupFilters(worksData, false);
       this.adminAccess.handleAdminAccess(worksData);
     });
   };
