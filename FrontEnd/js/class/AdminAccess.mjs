@@ -32,8 +32,10 @@ export class AdminAccess {
 
   logOut = (worksData) => {
     this.adminAccess.innerText = "login";
+
     localStorage.removeItem("loginInformation");
     localStorage.clear();
+
     this.editWorksButton.classList.remove("is-logged-in");
     this.editPresentationText.classList.remove("is-logged-in");
     this.editProfilePicture.classList.remove("is-logged-in");
