@@ -26,6 +26,7 @@ export class AdminAccess {
     this.editProfilePicture.classList.add("is-logged-in");
     this.filtersContainer.classList.add("is-logged-in");
     this.worksTitleAndEdit.classList.add("title-is-logged-in");
+
     new Modal(worksData);
   };
 
