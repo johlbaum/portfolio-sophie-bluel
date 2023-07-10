@@ -61,6 +61,7 @@ export class AddWorkForm {
 
   resetForm = () => {
     this.submitButton.classList.remove("submit-is-valid");
+
     setTimeout(() => {
       this.titleInput.value = "";
       this.categorySelect.value = "";
