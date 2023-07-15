@@ -53,8 +53,6 @@ export class AdminAccess {
         if (this.userIsLoggedIn() !== null) {
           e.preventDefault();
           this.logOut(worksData);
-        } else {
-          window.location.href = "login.js";
         }
       });
     }
