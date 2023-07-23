@@ -1,4 +1,5 @@
 import { Works } from "./works.mjs";
+import { Categories } from "./Categories.mjs";
 
 export class AddWorkForm {
   constructor(addWorkManager) {
@@ -12,7 +13,9 @@ export class AddWorkForm {
     this.imageFile = "";
     this.addWorkManager = addWorkManager;
     this.addWorkFormMessage = document.querySelector(".add-work-form-message");
+    this.categorySelect = document.getElementById("category");
     this.works = new Works();
+    this.categories = new Categories();
     this.initializeListeners();
   }
 
@@ -27,6 +30,21 @@ export class AddWorkForm {
 
   getImageFile = (e) => {
     this.imageFile = e.target.files[0];
+  };
+
+  addCategoriesToSelectForm = async () => {
+    const selectElement = document.getElementById("category");
+    try {
+      const categoriesData = await this.categories.GetCategories();
+      categoriesData.forEach((category) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = category.id;
+        optionElement.textContent = category.name;
+        selectElement.appendChild(optionElement);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   updateSubmitButtonColor = () => {
@@ -91,6 +109,7 @@ export class AddWorkForm {
   };
 
   initializeListeners = () => {
+    this.addCategoriesToSelectForm();
     this.titleInput.addEventListener("input", this.updateSubmitButtonColor);
     this.categorySelect.addEventListener("input", this.updateSubmitButtonColor);
     this.imgInput.addEventListener("input", this.updateSubmitButtonColor);
