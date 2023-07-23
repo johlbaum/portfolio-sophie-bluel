@@ -7,9 +7,7 @@ export class Filters {
   }
 
   resetFilters = () => {
-    while (this.filtersContainer.firstChild) {
-      this.filtersContainer.removeChild(this.filtersContainer.firstChild);
-    }
+    this.filtersContainer.innerHTML = "";
   };
 
   setUniqueCategoriesArray = async (worksData, shouldUpdateProjects) => {

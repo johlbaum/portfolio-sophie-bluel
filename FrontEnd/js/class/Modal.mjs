@@ -118,9 +118,7 @@ export class Modal {
   };
 
   emptyModal = () => {
-    while (this.modalWorks.firstChild) {
-      this.modalWorks.removeChild(this.modalWorks.firstChild);
-    }
+    this.modalWorks.innerHTML = "";
   };
 
   updateWorksDataAfterAdd = (newWork) => {

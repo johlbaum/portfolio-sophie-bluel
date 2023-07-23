@@ -14,9 +14,7 @@ export class Works {
 
   showWorks = (worksData) => {
     const gallery = document.querySelector(".gallery");
-    while (gallery.firstChild) {
-      gallery.removeChild(gallery.firstChild);
-    }
+    gallery.innerHTML = "";
 
     worksData.forEach((work) => {
       const { imageUrl, title } = work;
