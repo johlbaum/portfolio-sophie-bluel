@@ -5,12 +5,10 @@ export class AdminAccess {
   constructor() {
     this.adminAccess = document.querySelector('.admin-access');
     this.editWorksButton = document.querySelector('.edit-works');
-    this.editPresentationText = document.querySelector(
-      '.presentation-text-edit',
-    );
-    this.editProfilePicture = document.querySelector('.profile-picture-edit');
     this.filtersContainer = document.querySelector('.filters');
     this.worksTitleAndEdit = document.querySelector('.works-title-and-edit');
+    this.editionModeBar = document.querySelector('.edition-mode-bar');
+    this.header = document.querySelector('header');
     this.filters = new Filters();
   }
 
@@ -22,9 +20,9 @@ export class AdminAccess {
   logIn = (worksData) => {
     this.adminAccess.innerText = 'logout';
     this.editWorksButton.classList.add('is-logged-in');
-    this.editPresentationText.classList.add('is-logged-in');
-    this.editProfilePicture.classList.add('is-logged-in');
     this.filtersContainer.classList.add('is-logged-in');
+    this.editionModeBar.classList.add('is-logged-in');
+    this.header.classList.add('is-logged-in');
     this.worksTitleAndEdit.classList.add('title-is-logged-in');
 
     new Modal(worksData);
@@ -37,9 +35,9 @@ export class AdminAccess {
     localStorage.clear();
 
     this.editWorksButton.classList.remove('is-logged-in');
-    this.editPresentationText.classList.remove('is-logged-in');
-    this.editProfilePicture.classList.remove('is-logged-in');
     this.filtersContainer.classList.remove('is-logged-in');
+    this.editionModeBar.classList.remove('is-logged-in');
+    this.header.classList.remove('is-logged-in');
     this.worksTitleAndEdit.classList.remove('title-is-logged-in');
 
     this.filters.setupFilters(worksData, true);

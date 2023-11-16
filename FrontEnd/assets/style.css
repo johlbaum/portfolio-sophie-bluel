@@ -200,6 +200,39 @@ nav ul li a {
 
 /****** Edit ******/
 
+.edition-mode-bar {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	background-color: #000000;
+	left: 50%;
+  transform: translateX(-50%);
+  max-width: 1440px;
+	height: 40px;
+	display: none;
+}
+
+header.is-logged-in {
+	padding-top: 80px;
+}
+
+.edition-mode-bar-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.is-logged-in.edition-mode-bar {
+	display: block;
+}
+
+.edition-mode-bar-content i,
+.edition-mode-bar-content p {
+    color: #fff;
+		padding: 0 5px;
+}
+
 .works-title-and-edit {	
 	display: flex;
   align-items: center;
