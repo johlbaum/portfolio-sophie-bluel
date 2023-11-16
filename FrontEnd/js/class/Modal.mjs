@@ -1,24 +1,24 @@
-import { AddWorkForm } from "./addWorkForm.mjs";
-import { Filters } from "./filters.mjs";
-import { Works } from "./works.mjs";
+import { AddWorkForm } from './AddWorkForm.mjs';
+import { Filters } from './Filters.mjs';
+import { Works } from './Works.mjs';
 
 export class Modal {
   constructor(worksData) {
     this.worksData = worksData;
-    this.editWorksButton = document.querySelector(".edit-works");
+    this.editWorksButton = document.querySelector('.edit-works');
     this.editWorksButtonIcon =
-      this.editWorksButton.querySelector(":first-child");
+      this.editWorksButton.querySelector(':first-child');
     this.editWorksButtonPara =
-      this.editWorksButton.querySelector(":nth-child(2)");
-    this.modalContainer = document.querySelector(".modal-container");
-    this.modalContent = document.querySelector(".modal-content");
-    this.modalWorks = document.querySelector(".modal-works");
-    this.closeModalIcon = document.querySelectorAll(".close-modal-icon");
-    this.addPictureContent = document.querySelector(".add-picture-content");
-    this.photoGalleryContent = document.querySelector(".photo-gallery-content");
-    this.addPictureButton = document.querySelector(".add-picture");
+      this.editWorksButton.querySelector(':nth-child(2)');
+    this.modalContainer = document.querySelector('.modal-container');
+    this.modalContent = document.querySelector('.modal-content');
+    this.modalWorks = document.querySelector('.modal-works');
+    this.closeModalIcon = document.querySelectorAll('.close-modal-icon');
+    this.addPictureContent = document.querySelector('.add-picture-content');
+    this.photoGalleryContent = document.querySelector('.photo-gallery-content');
+    this.addPictureButton = document.querySelector('.add-picture');
     this.backToPhotoGalleryIcon = document.querySelector(
-      ".back-to-photo-gallery-icon"
+      '.back-to-photo-gallery-icon',
     );
 
     this.works = new Works();
@@ -29,24 +29,24 @@ export class Modal {
 
   showModalWorks = () => {
     this.worksData.forEach((work) => {
-      const worksContainer = document.createElement("div");
-      const workImgContainer = document.createElement("div");
-      const workImage = document.createElement("img");
-      const deleteIcon = document.createElement("i");
-      const workEdit = document.createElement("p");
+      const worksContainer = document.createElement('div');
+      const workImgContainer = document.createElement('div');
+      const workImage = document.createElement('img');
+      const deleteIcon = document.createElement('i');
+      const workEdit = document.createElement('p');
 
-      worksContainer.classList.add("modal-work");
+      worksContainer.classList.add('modal-work');
       worksContainer.classList.add(`work-${work.id}`);
-      workImgContainer.classList.add("work-img-container");
+      workImgContainer.classList.add('work-img-container');
       workImage.src = work.imageUrl;
       deleteIcon.classList.add(
-        "fa",
-        "fa-2xs",
-        "regular",
-        "fa-trash-can",
-        "delete-work-icon"
+        'fa',
+        'fa-2xs',
+        'regular',
+        'fa-trash-can',
+        'delete-work-icon',
       );
-      workEdit.textContent = "éditer";
+      workEdit.textContent = 'éditer';
 
       this.modalWorks.appendChild(worksContainer);
       worksContainer.appendChild(workImgContainer);
@@ -56,17 +56,17 @@ export class Modal {
     });
 
     //Add a move icon on the image of the first project of the modal if it contains at least one project.
-    const firstModalWork = document.querySelector(".modal-work:first-child");
+    const firstModalWork = document.querySelector('.modal-work:first-child');
     if (firstModalWork !== null) {
       const firstWorkImgContainer = firstModalWork.querySelector(
-        ".work-img-container"
+        '.work-img-container',
       );
-      const moveWorkIcon = document.createElement("i");
+      const moveWorkIcon = document.createElement('i');
       moveWorkIcon.classList.add(
-        "fa-solid",
-        "fa-2xs",
-        "fa-up-down-left-right",
-        "move-work-icon"
+        'fa-solid',
+        'fa-2xs',
+        'fa-up-down-left-right',
+        'move-work-icon',
       );
       firstWorkImgContainer.appendChild(moveWorkIcon);
     }
@@ -75,9 +75,9 @@ export class Modal {
   };
 
   attachDeleteEventListeners = (worksData) => {
-    const deleteWorkIcons = document.querySelectorAll(".delete-work-icon");
+    const deleteWorkIcons = document.querySelectorAll('.delete-work-icon');
     deleteWorkIcons.forEach((deleteWorkIcon, deleteIconIndex) => {
-      deleteWorkIcon.addEventListener("click", () => {
+      deleteWorkIcon.addEventListener('click', () => {
         worksData.forEach((workToDelete, workToDeleteIndex) => {
           if (deleteIconIndex === workToDeleteIndex) {
             this.works.deleteWork(workToDelete.id).then(() => {
@@ -90,15 +90,15 @@ export class Modal {
   };
 
   openModal = () => {
-    this.modalContainer.classList.add("modal-is-open");
+    this.modalContainer.classList.add('modal-is-open');
     this.emptyModal();
     this.showModalWorks(this.worksData);
   };
 
   closeModal = () => {
-    this.modalContainer.classList.remove("modal-is-open");
-    this.addPictureContent.classList.add("hide");
-    this.photoGalleryContent.classList.add("show");
+    this.modalContainer.classList.remove('modal-is-open');
+    this.addPictureContent.classList.add('hide');
+    this.photoGalleryContent.classList.add('show');
     this.addWorkForm.resetForm();
   };
 
@@ -113,12 +113,12 @@ export class Modal {
   };
 
   toogleModalContent = () => {
-    this.photoGalleryContent.classList.toggle("show");
-    this.addPictureContent.classList.toggle("hide");
+    this.photoGalleryContent.classList.toggle('show');
+    this.addPictureContent.classList.toggle('hide');
   };
 
   emptyModal = () => {
-    this.modalWorks.innerHTML = "";
+    this.modalWorks.innerHTML = '';
   };
 
   updateWorksDataAfterAdd = (newWork) => {
@@ -127,7 +127,7 @@ export class Modal {
 
   updateWorksDataAfterDelete = (workToDelete) => {
     const index = this.worksData.findIndex(
-      (work) => work.id === workToDelete.id
+      (work) => work.id === workToDelete.id,
     );
     if (index !== -1) {
       this.worksData.splice(index, 1);
@@ -154,15 +154,15 @@ export class Modal {
   };
 
   initializeListeners = () => {
-    this.editWorksButton.addEventListener("click", this.openModal);
+    this.editWorksButton.addEventListener('click', this.openModal);
     this.closeModalIcon.forEach((curr) => {
-      curr.addEventListener("click", this.closeModal);
+      curr.addEventListener('click', this.closeModal);
     });
-    document.addEventListener("click", this.handleClickOutsideModal);
-    this.addPictureButton.addEventListener("click", this.toogleModalContent);
+    document.addEventListener('click', this.handleClickOutsideModal);
+    this.addPictureButton.addEventListener('click', this.toogleModalContent);
     this.backToPhotoGalleryIcon.addEventListener(
-      "click",
-      this.toogleModalContent
+      'click',
+      this.toogleModalContent,
     );
   };
 }

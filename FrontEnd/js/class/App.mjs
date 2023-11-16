@@ -1,6 +1,6 @@
-import { Filters } from "./filters.mjs";
-import { AdminAccess } from "./AdminAccess.mjs";
-import { Works } from "./works.mjs";
+import { Filters } from './Filters.mjs';
+import { AdminAccess } from './AdminAccess.mjs';
+import { Works } from './Works.mjs';
 
 export class App {
   constructor() {

@@ -1,13 +1,13 @@
-import { Works } from "./works.mjs";
+import { Works } from './Works.mjs';
 
 export class Filters {
   constructor() {
-    this.filtersContainer = document.querySelector(".filters");
+    this.filtersContainer = document.querySelector('.filters');
     this.works = new Works();
   }
 
   resetFilters = () => {
-    this.filtersContainer.innerHTML = "";
+    this.filtersContainer.innerHTML = '';
   };
 
   setUniqueCategoriesArray = async (worksData, shouldUpdateProjects) => {
@@ -17,7 +17,7 @@ export class Filters {
 
       const uniqueCategories = [
         ...new Set(
-          updatedWorksData.map((item) => JSON.stringify(item.category))
+          updatedWorksData.map((item) => JSON.stringify(item.category)),
         ),
       ].map((category) => JSON.parse(category));
 
@@ -29,28 +29,28 @@ export class Filters {
   };
 
   addAllToFiltersCategories = (uniqueCategoriesArray) => {
-    uniqueCategoriesArray.unshift({ id: 0, name: "Tous" });
+    uniqueCategoriesArray.unshift({ id: 0, name: 'Tous' });
   };
 
   createFilterElements = (uniqueCategoriesArray) => {
     uniqueCategoriesArray.forEach((category) => {
-      const filterElement = document.createElement("p");
-      filterElement.classList.add("filter");
+      const filterElement = document.createElement('p');
+      filterElement.classList.add('filter');
       filterElement.innerText = category.name;
       this.filtersContainer.appendChild(filterElement);
     });
   };
 
   setFirstFilterActiveBackground = () => {
-    const firstFilter = document.querySelector(".filters").firstChild;
-    firstFilter.classList.add("active");
+    const firstFilter = document.querySelector('.filters').firstChild;
+    firstFilter.classList.add('active');
   };
 
   changeActiveFilterBackground = (filterElements, filterIndex) => {
     filterElements.forEach((filter, index) => {
-      filter.classList.remove("active");
+      filter.classList.remove('active');
       if (filterIndex === index) {
-        filter.classList.add("active");
+        filter.classList.add('active');
       }
     });
   };
@@ -66,14 +66,14 @@ export class Filters {
         return true;
       }
     });
-    document.querySelector(".gallery").innerHTML = "";
+    document.querySelector('.gallery').innerHTML = '';
     this.works.showWorks(filteredProjects);
   };
 
   activateFilterListeners = (worksData, uniqueCategoriesArray) => {
-    const filterElements = document.querySelectorAll(".filter");
+    const filterElements = document.querySelectorAll('.filter');
     filterElements.forEach((filter, filterIndex) => {
-      filter.addEventListener("click", () => {
+      filter.addEventListener('click', () => {
         this.changeActiveFilterBackground(filterElements, filterIndex);
         this.applyFilter(worksData, filterIndex, uniqueCategoriesArray);
       });
@@ -84,7 +84,7 @@ export class Filters {
     this.resetFilters();
     const uniqueCategoriesArray = await this.setUniqueCategoriesArray(
       worksData,
-      shouldUpdateProjects
+      shouldUpdateProjects,
     );
     this.addAllToFiltersCategories(uniqueCategoriesArray);
     this.createFilterElements(uniqueCategoriesArray);
